@@ -1,0 +1,183 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+#include <locale.h>
+
+
+
+struct encomenda
+{
+	char codigo[1024];
+	char nomeRemetente[1024];
+	char nomeDestinatario[1024];
+	char endereco[1024];
+};
+
+void cadastrar (struct encomenda [], int);
+void printOrders(struct encomenda encomendas[], int n);
+void buscador (struct encomenda encomendas[], int);
+
+
+
+
+main(){
+	int controlador;
+	setlocale(LC_ALL, "Portuguese");
+	int escolha;
+    struct encomenda encomendas[5];
+    int i = 0;
+	while (escolha!=4){
+		system("CLS");
+		printf("===========================================PROGRAMA PARA GERENCIAR ENCOMENDAS=========================================== \n \n");
+		printf("\t \t \t \t \t  Informe a opção desejada \n \n"); // Pede para o usuário escolher uma opção
+		printf("\t \t \t \t \t  1  ===> Registrar pacote \n");
+		printf("\t \t \t \t \t  2  ===> Buscar pacote \n");
+		printf("\t \t \t \t \t  3  ===> Mostrar encomendas \n");
+		printf("\t \t \t \t \t  4  ===> Sair \n \n");
+		printf("\t \t \t \t \t  Insira uma opção: ");
+		scanf("%d", &escolha); // Pega o dado do tipo char e armazena na variável escolha
+		getchar();
+		switch(escolha){
+		case 1:
+			system("CLS");
+            if (i <= 4) {
+                cadastrar(encomendas, i);
+                ++i;
+            } else {
+                printf("Não é possível adicionar novas encomendas!\n");
+            }
+			break; // Faz o código não verificar mais
+		case 2:
+			system("CLS");
+			buscador(encomendas, i);
+			break;// Faz o código não verificar mais
+		case 3:
+			system("CLS");
+			printOrders(encomendas, i);
+			break;// Faz o código não verificar mais
+		case 4:
+			break;
+		default: // Se nenhuma das opções for escolhida, mostra isso
+			printf("Insira uma opção! \n");
+			scanf("%d", &escolha);
+			break;
+		}
+	}
+}
+
+void cadastrar (struct encomenda encomendas[], int i){
+	int controlador=0;
+	printf("===========================================PROGRAMA PARA GERENCIAR ENCOMENDAS=========================================== \n \n");
+	printf("\t \t \t \t \t Insira um código de 5 dígitos ==> ");
+	fgets(encomendas[i].codigo, 1024, stdin);
+	printf("\t \t \t \t \t Insira o nome do remetente ==> ");
+	fgets(encomendas[i].nomeDestinatario, 1024, stdin);
+	printf("\t \t \t \t \t Insira o nome do destinatário ==> ");
+	fgets(encomendas[i].nomeRemetente, 1024, stdin);
+	printf("\t \t \t \t \t Insira o endereço ==> ");
+	fgets(encomendas[i].endereco, 1024, stdin);
+	printf("\n \n");
+	printf("\t \t \t \t \t    Confirme as informações: \n \n");
+	printf("\t \t \t \t \t \t Código: %s \n", encomendas[i].codigo);
+	printf("\t \t \t \t \t \t Remetente: %s \n", encomendas[i].nomeDestinatario);
+	printf("\t \t \t \t \t \t Destinatário: %s \n", encomendas[i].nomeRemetente);
+	printf("\t \t \t \t \t \t Endereço: %s \n", encomendas[i].endereco);
+	getch();
+	// fflush(stdin);	
+}
+
+void printOrders(struct encomenda encomendas[], int n) {
+    for(int i = 0; i < n; ++i ){
+    	printf("\n \n");
+	    printf("\t \t \t \t \t Encomenda %d \n", i+1);
+	    printf("\t \t \t \t \t Código: %s \n", encomendas[i].codigo);
+	    printf("\t \t \t \t \t Destinatário: %s \n", encomendas[i].nomeDestinatario);
+	    printf("\t \t \t \t \t Remetente: %s \n", encomendas[i].nomeRemetente);
+	    printf("\t \t \t \t \t Endereço: %s \n", encomendas[i].endereco);
+	    getch();
+    }
+}
+
+void buscador (struct encomenda encomendas[], int buscador){
+	char verificador[1024];
+	char alterar;
+	buscador = 0;
+	printf("===========================================PROGRAMA PARA GERENCIAR ENCOMENDAS=========================================== \n \n");
+	printf("\t \t \t \t \t Insira o código da encomenda ==> ");
+	fgets(verificador, 1024, stdin);
+	for(int i = 0; i < 5; i++){
+		if (strcmp(encomendas[i].codigo, verificador) == 0){
+			printf("\n \n");
+			printf("\t \t \t \t \t Achei!");
+			printf("\n \n");
+	    	printf("\t \t \t \t \t Código: %s \n", encomendas[i].codigo);
+	    	printf("\t \t \t \t \t Destinatário: %s \n", encomendas[i].nomeDestinatario);
+	    	printf("\t \t \t \t \t Remetente: %s \n", encomendas[i].nomeRemetente);
+	    	printf("\t \t \t \t \t Endereço: %s \n", encomendas[i].endereco);
+	    	buscador == i;
+	    	getch();
+	    	printf("\n \n");
+	    	printf("\t \t \t \t \t Você deseja alterar algum dado? (s ou n) ==> ");
+	    	scanf("%c", &alterar);
+	    	if (alterar == 's'){
+	    		while(alterar!=4){
+    	    		system("CLS");
+    	    		printf("===========================================PROGRAMA PARA GERENCIAR ENCOMENDAS=========================================== \n \n");
+    	    		printf("\n \n");
+    	    		printf("\t \t \t \t \t Qual dado você deseja alterar? \n \n");
+    	    		printf("\t \t \t \t \t  1  ===> Nome do Remetente \n");
+    				printf("\t \t \t \t \t  2  ===> Nome do Destinatário \n");
+    				printf("\t \t \t \t \t  3  ===> Endereço \n");
+    				printf("\t \t \t \t \t  4  ===> Sair \n  \n");
+    				printf("\t \t \t \t \t  Insira uma opção: ");
+    				scanf("%d", &alterar); // Pega o dado do tipo char e armazena na variável escolha
+    				getchar();
+				    switch(alterar){
+					    case 1:
+    						system("CLS");
+    						printf("===========================================PROGRAMA PARA GERENCIAR ENCOMENDAS=========================================== \n \n");
+    						printf("\n \n");
+    						printf("\t \t \t \t \tRemetente atual ===>  %s", encomendas[i].nomeRemetente);
+    						printf("\t \t \t \t \tInsira o novo nome do remetente ===> ");
+    						fgets(encomendas[i].nomeRemetente, 1024, stdin);
+    						printf("\n \n");
+    						printf("\t \t \t \t \t Remetente alterado!");
+    						getchar();
+    						break; // Faz o código não verificar mais
+    					case 2:
+    						system("CLS");
+    						printf("===========================================PROGRAMA PARA GERENCIAR ENCOMENDAS=========================================== \n \n");
+    						printf("\n \n");
+    						printf("\t \t \t \t \tDestinatário atual ===>  %s", encomendas[i].nomeDestinatario);
+    						printf("\t \t \t \t \tInsira o novo nome do destinatário ===> ");
+    						fgets(encomendas[i].nomeDestinatario, 1024, stdin);
+    						printf("\n \n");
+    						printf("\t \t \t \t \t Destinatário alterado!");
+    						getchar();
+    						break;// Faz o código não verificar mais
+    					case 3:
+    						system("CLS");
+    						printf("===========================================PROGRAMA PARA GERENCIAR ENCOMENDAS=========================================== \n \n");
+    						printf("\n \n");
+    						printf("\t \t \t \t \tEndereço atual ===>  %s", encomendas[i].endereco);
+    						printf("\t \t \t \t \tInsira o novo nome do endereço ===> ");
+    						fgets(encomendas[i].endereco, 1024, stdin);
+    						printf("\n \n");
+    						printf("\t \t \t \t \t Endereço alterado!");
+    						getchar();
+    						break;// Faz o código não verificar mais
+    					case 4:
+    						break;
+    					default: // Se nenhuma das opções for escolhida, mostra isso
+    						printf("Insira uma opção! \n");
+    						scanf("%d", &alterar);
+    						break;
+				    }
+				}
+			}
+		    break;
+			
+		}
+	}
+}
